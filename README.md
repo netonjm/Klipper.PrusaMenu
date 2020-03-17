@@ -14,3 +14,16 @@ This repo contains some examples of configuration files to use with Klipper firm
 ![prusa menu](https://github.com/netonjm/Klipper-CR10sPro/raw/master/images/screen-prusa.png)
 
 
+# Getting started
+
+Use this configuarion files it's extremely easy, simply copy macros.cfg and menu.cfg in the same folder than **printer.cfg** and add this lines into it:
+
+`[include printer_macros.cfg]`
+`[include printer_menu.cfg]`
+
+in `[display]` section add:
+
+`menu_root: __mainp`
+
+
+done!
