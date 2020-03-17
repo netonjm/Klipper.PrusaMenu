@@ -23,7 +23,7 @@ Use this configuarion files it's extremely easy, simply copy macros.cfg and menu
 
 in `[display]` section add:
 
-`menu_root: __mainp`
+`menu_root: __main`
 
 
 you are ready to go!
