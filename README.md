@@ -18,12 +18,12 @@ This repo contains some examples of configuration files to use with Klipper firm
 
 Use this configuarion files it's extremely easy, simply copy macros.cfg and menu.cfg in the same folder than **printer.cfg** and add this lines into it:
 
-`[include printer_macros.cfg]`
-`[include printer_menu.cfg]`
+    [include printer_macros.cfg]
+    [include printer_menu.cfg]
 
 in `[display]` section add:
 
 `menu_root: __mainp`
 
 
-done!
+you are ready to go!
