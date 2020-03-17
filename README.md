@@ -34,7 +34,7 @@ Last step is in `[display]` section override the menu with:
 
 `menu_root: __main`
 
-you are ready to go!
+Restart your klipper service and enjoy!
 
 # How to update
 
