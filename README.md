@@ -13,10 +13,6 @@ This repo contains some examples of configuration files to use with Klipper firm
 ![prusa menu](https://github.com/netonjm/Klipper-CR10sPro/raw/master/images/screen-prusa.png)
 
 
-![example of a cube](https://github.com/netonjm/Klipper-CR10sPro/raw/master/images/cube.png)
-
-
-
 # Getting started
 
 Use this configuarion files it's extremely easy, simply clone this repo in your raspberry:
