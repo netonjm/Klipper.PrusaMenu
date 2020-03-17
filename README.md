@@ -21,7 +21,7 @@ Use this configuarion files it's extremely easy, simply clone this repo in your 
     
     cd Klipper.PrusaMenu
     
-    make install
+    make update
 
 This will copy **printer_macros.cfg** and **printer_menu.cfg** into your home folder
 
@@ -44,8 +44,7 @@ Simply go to your prusa menu folder
 
 and run:
 
-    git pull
-    make install
+    make update
     
 Restart your klipper service and done!
 
