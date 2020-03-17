@@ -2,6 +2,7 @@
 
 This repo contains some examples of configuration files to use with Klipper firmware
 
+
 - **printer.cfg :** Configuration example file for a Creality CR10sPro
 
 - **printer_macros.cfg :** Extends with new macros missing GCodes in Klipper
@@ -18,14 +19,37 @@ This repo contains some examples of configuration files to use with Klipper firm
 
 # Getting started
 
-Use this configuarion files it's extremely easy, simply copy macros.cfg and menu.cfg in the same folder than **printer.cfg** and add this lines into it:
+Use this configuarion files it's extremely easy, simply clone this repo in your raspberry:
+
+    git clone https://github.com/netonjm/Klipper.PrusaMenu
+    
+    cd Klipper.PrusaMenu
+    
+    make install
+
+This will copy **printer_macros.cfg** and **printer_menu.cfg** into your home folder
+
+Next step is open your **printer.cfg** and add this lines:
 
     [include printer_macros.cfg]
     [include printer_menu.cfg]
 
-in `[display]` section add:
+Last step is in `[display]` section override the menu with:
 
 `menu_root: __main`
 
-
 you are ready to go!
+
+# How to update
+
+Simply go to your prusa menu folder
+
+    cd ~/Klipper.PrusaMenu
+
+and run:
+
+    git pull
+    make install
+    
+Restart your klipper service and done!
+
