@@ -1,4 +1,4 @@
-# Klipper + Prusa Menu
+# Klipper ❤️ Prusa Menu
 
 This repo contains some examples of configuration files to use with Klipper firmware
 
