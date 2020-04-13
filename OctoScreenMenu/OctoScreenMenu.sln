@@ -1,0 +1,35 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.GtkSharp", "OctoScreenMenu.GtkSharp\OctoScreenMenu.GtkSharp.csproj", "{CBBC396F-2226-4FAF-B622-7F358C453C11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu", "OctoScreenMenu\OctoScreenMenu.csproj", "{8F3D5137-21FF-40CB-9D66-A920344EAAA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.Terminal", "OctoScreenMenu.Terminal\OctoScreenMenu.Terminal.csproj", "{21B1E259-8E09-46AF-BD18-64784F33E9D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.Test", "OctoScreenMenu.Tests\OctoScreenMenu.Test.csproj", "{3483A666-8E8E-4537-B941-DFE3883AADEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBBC396F-2226-4FAF-B622-7F358C453C11}.Debug|anycpu.ActiveCfg = Debug|anycpu
+		{CBBC396F-2226-4FAF-B622-7F358C453C11}.Debug|anycpu.Build.0 = Debug|anycpu
+		{CBBC396F-2226-4FAF-B622-7F358C453C11}.Release|anycpu.ActiveCfg = Release|anycpu
+		{CBBC396F-2226-4FAF-B622-7F358C453C11}.Release|anycpu.Build.0 = Release|anycpu
+		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Release|anycpu.Build.0 = Release|Any CPU
+		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Release|anycpu.Build.0 = Release|Any CPU
+		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
