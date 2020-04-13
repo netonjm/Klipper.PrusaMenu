@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.GtkSharp", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu", "OctoScreenMenu\OctoScreenMenu.csproj", "{8F3D5137-21FF-40CB-9D66-A920344EAAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.Terminal", "OctoScreenMenu.Terminal\OctoScreenMenu.Terminal.csproj", "{21B1E259-8E09-46AF-BD18-64784F33E9D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.Test", "OctoScreenMenu.Tests\OctoScreenMenu.Test.csproj", "{3483A666-8E8E-4537-B941-DFE3883AADEA}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Release|anycpu.ActiveCfg = Release|Any CPU
 		{8F3D5137-21FF-40CB-9D66-A920344EAAA1}.Release|anycpu.Build.0 = Release|Any CPU
-		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Debug|anycpu.ActiveCfg = Debug|Any CPU
-		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Debug|anycpu.Build.0 = Debug|Any CPU
-		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Release|anycpu.ActiveCfg = Release|Any CPU
-		{21B1E259-8E09-46AF-BD18-64784F33E9D8}.Release|anycpu.Build.0 = Release|Any CPU
 		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Debug|anycpu.ActiveCfg = Debug|Any CPU
 		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{3483A666-8E8E-4537-B941-DFE3883AADEA}.Release|anycpu.ActiveCfg = Release|Any CPU
