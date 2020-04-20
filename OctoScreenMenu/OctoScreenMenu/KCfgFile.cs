@@ -37,7 +37,42 @@ namespace OctoScreenMenu
                 var ids = line.Substring("menu ".Length).Trim ();
                 MenuIds.AddRange(ids.Split (' '));
             }
+        }
 
+        public bool BacksToStatusMenu { get; private set; }
+
+        public string Respond { get; private set; }
+        public string RespondAction { get; set; }
+
+        void ProcessAction (string action)
+        {
+            var commaSplit = action.Split(',');
+            foreach (var item in commaSplit)
+            {
+                var response = item.Trim();
+                if (response == "exit")
+                {
+                    BacksToStatusMenu = true;
+                }
+                else if (response.StartsWith ("respond "))
+                {
+                    Respond = response.Substring("respond ".Length);
+
+                    var act = Respond.Split(':');
+                    if (act.Length > 0)
+                    {
+                        RespondAction = act[1].Trim ();
+                    } else
+                    {
+                        Console.WriteLine(Respond.Trim ());
+                    }
+                   
+                } else
+                {
+                    Console.WriteLine(action);
+                }
+            }
+            Console.WriteLine(action);
         }
 
         internal override bool OnAddingLine (string parameter, string value)
@@ -55,6 +90,7 @@ namespace OctoScreenMenu
                 case "action":
                     actualParameter = parameter;
                     Action = value;
+                    ProcessAction(value);
                     return true;
                 case "gcode":
                     actualParameter = parameter;
@@ -95,6 +131,11 @@ namespace OctoScreenMenu
         protected Dictionary<string, string> lines = new Dictionary<string, string>();
 
         public string Name { get; private set; }
+
+        public bool TryGetValue (string name, out string value)
+        {
+            return lines.TryGetValue(name, out value);
+        }
 
         internal virtual bool OnAddingLine (string parameter, string value)
         {
@@ -141,12 +182,57 @@ namespace OctoScreenMenu
         }
     }
 
+    public class MainKCfgFile : KCfgFile
+    {
+        public IEnumerable<MenuSectionFile> AllMenus() => AllSections().OfType<MenuSectionFile>();
+
+        public IEnumerable<MenuSectionFile> GetChildren (MenuSectionFile menuSection)
+        {
+            foreach (var item in menuSection.Items)
+            {
+                yield return GetMenuSectionById(item);
+            }
+        }
+
+        MenuSectionFile GetMenuSectionById (string menuId)
+        {
+            if (menuId[0] == '.')
+                menuId = menuId.Substring(1);
+
+            var menu = AllSections().OfType<MenuSectionFile>()
+                        .Where(s => s.MenuIds.Contains(menuId))
+                        .FirstOrDefault();
+            if (menu == null)
+            {
+                Console.WriteLine("");
+            }
+            return menu;
+        }
+
+        public MenuSectionFile GetParentSectionMenu (MenuSectionFile menuSection)
+        {
+            return AllMenus().FirstOrDefault(s => s.Items.Any (h => menuSection.MenuIds.Contains (h)));
+        }
+
+        public MenuSectionFile MainMenuSectionFile { get
+            {
+                var displaySection = AllSections().FirstOrDefault(s => s.Name == "display");
+                if (displaySection != null && displaySection.TryGetValue("menu_root", out var value))
+                {
+                    var menu = GetMenuSectionById(value);
+                    return menu;
+                }
+                return null;
+            }
+        }
+    }
+
     public class KCfgFile
     {
         readonly public List<SectionFile> Sections = new List<SectionFile>();
         readonly public List<KCfgFile> Included = new List<KCfgFile>();
 
-        public IEnumerable<SectionFile> AllSections ()
+        public IEnumerable<SectionFile> AllSections()
         {
             foreach (var item in Sections)
             {
@@ -155,7 +241,7 @@ namespace OctoScreenMenu
 
             foreach (var item in Included)
             {
-                foreach (var sec in item.AllSections ())
+                foreach (var sec in item.AllSections())
                 {
                     yield return sec;
                 }

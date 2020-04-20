@@ -3,6 +3,8 @@
 
 public partial class MainWindow
 {
+	private global::Gtk.Fixed fixed1;
+
 	protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
@@ -10,13 +12,17 @@ public partial class MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString("MainWindow");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		// Container child MainWindow.Gtk.Container+ContainerChild
+		this.fixed1 = new global::Gtk.Fixed();
+		this.fixed1.Name = "fixed1";
+		this.fixed1.HasWindow = false;
+		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 580;
+		this.DefaultHeight = 347;
 		this.Show();
-		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 	}
 }

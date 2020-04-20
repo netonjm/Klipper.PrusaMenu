@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<VBox expand="true" fill="true">
+    <HBox expand="true" fill="true">
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+        <VBox expand="true" fill="true">
+            <Fixed expand="true" fill="true" />
+        </VBox>
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+    </HBox>
+    <HBox expand="true" fill="true">
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+        <VBox expand="true" fill="true">
+            <Fixed expand="true" />
+        </VBox>
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+    </HBox>
+    <HBox expand="true" fill="true">
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+        <VBox expand="true" fill="true">
+            <Fixed expand="true" />
+        </VBox>
+        <VBox expand="true" fill="true">
+            <HBox expand="true" fill="true" space="10">
+                <Image padding="20" src="LeftLIT.png" width="50" height="50" />
+                <Label text="23/150º" />
+             </HBox>
+        </VBox>
+    </HBox>
+    <HBox expand="true" fill="true">
+         <Label expand="true" text="Prusa i3 MK3 ready." />
+    </HBox>
+</VBox>

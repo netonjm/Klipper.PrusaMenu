@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
+
 namespace OctoScreenMenu.Tests
 {
     [TestFixture()]
@@ -8,8 +10,15 @@ namespace OctoScreenMenu.Tests
         [Test()]
         public void TestCase()
         {
-            KCfgFile kCfgFile = new KCfgFile();
-            kCfgFile.Load("/Users/jmedrano/Klipper.PrusaMenu/printer.cfg");
+            var mainConfigFile = new MainKCfgFile();
+            mainConfigFile.Load("/Users/jmedrano/Klipper.PrusaMenu/printer.cfg");
+            var mainMenu = mainConfigFile.MainMenuSectionFile;
+
+            var first = mainConfigFile.GetChildren(mainMenu).FirstOrDefault();
+
+            var parent = mainConfigFile.GetParentSectionMenu(first);
+
+            Console.WriteLine("");
 
         }
     }
