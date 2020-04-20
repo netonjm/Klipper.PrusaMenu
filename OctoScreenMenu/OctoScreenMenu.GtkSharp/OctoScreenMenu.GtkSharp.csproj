@@ -69,26 +69,29 @@
     <Compile Include="DeviceAgentCellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RightLITButton.png" />
-    <None Include="RightLIT.png" />
-    <None Include="LeftLITButton.png" />
-    <None Include="LeftLIT.png" />
-    <None Include="CentreLITButton.png" />
-    <None Include="CentreLIT.png">
+    <None Include="mainScreen.json" />
+    <None Include="EmptyXmlFile.xml" />
+    <None Include="Icons\LeftLIT.png" />
+    <None Include="Icons\LeftLITButton.png" />
+    <None Include="Icons\CentreLIT.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <LogicalName>CentreLIT</LogicalName>
     </None>
-    <None Include="red-arrow-left-icon-225849.png">
+    <None Include="Icons\CentreLITButton.png" />
+    <None Include="Icons\red-arrow-left-icon-225849.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="mainScreen.json" />
-    <None Include="EmptyXmlFile.xml" />
+    <None Include="Icons\RightLIT.png" />
+    <None Include="Icons\RightLITButton.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OctoScreenMenu\OctoScreenMenu.csproj">
       <Project>{8F3D5137-21FF-40CB-9D66-A920344EAAA1}</Project>
       <Name>OctoScreenMenu</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,7 +29,8 @@ public class DialogProcessDelegate
         }
         else
         {
-            obj = new Gtk.Image("/Users/jmedrano/Klipper.PrusaMenu/OctoScreenMenu/OctoScreenMenu.GtkSharp/LeftLIT.png");
+            var imgSrc = main.Attribute("src").Value ?? "LeftLIT.png";
+            obj = new Gtk.Image($"/Users/jmedrano/Klipper.PrusaMenu/OctoScreenMenu/OctoScreenMenu.GtkSharp/Icons/{imgSrc}");
         }
 
         if (content is Box box)
