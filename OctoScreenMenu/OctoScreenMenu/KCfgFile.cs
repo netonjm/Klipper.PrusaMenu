@@ -251,7 +251,6 @@ namespace OctoScreenMenu
         public void Load(string filePath)
         {
             var lines = System.IO.File.ReadAllLines(filePath);
-
             var directoryPath = System.IO.Path.GetDirectoryName(filePath);
 
             SectionFile current = null;

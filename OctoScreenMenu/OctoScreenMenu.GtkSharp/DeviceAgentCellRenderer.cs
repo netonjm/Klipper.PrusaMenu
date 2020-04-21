@@ -1,4 +1,6 @@
 ﻿using Gtk;
+using Gdk;
+
 using OctoScreenMenu;
 
 class DeviceAgentCellRenderer : CellRenderer
@@ -36,18 +38,50 @@ class DeviceAgentCellRenderer : CellRenderer
         return StateType.Normal;
     }
 
-    public override void GetSize(Widget widget, ref Gdk.Rectangle cell_area, out int x_offset, out int y_offset, out int width, out int height)
-    {
-        const int spacing = 5;
-        x_offset = 0;
-        y_offset = 0;
 
-        var visibleRect = widget.Allocation;
-        width = visibleRect.Width - 10;
-        height = (int)icon + spacing * 2;
-    }
+    //protected override void OnGetAlignedArea(Widget widget, CellRendererState flags, Rectangle cell_area, Rectangle aligned_area)
+    //{
+    //    base.OnGetAlignedArea(widget, flags, cell_area, aligned_area);
+    //}
 
-    protected override void Render(Gdk.Drawable window, Widget widget, Gdk.Rectangle background_area, Gdk.Rectangle cell_area, Gdk.Rectangle expose_area, CellRendererState flags)
+
+    //protected override void OnGetPreferredHeight(Widget widget, out int minimum_size, out int natural_size)
+    //{
+    //    minimum_size = 0;
+    //    if (widget == null)
+    //    {
+    //        natural_size = 100; return;
+    //    }
+         
+    //    const int spacing = 5;
+       
+    //    natural_size = (int)icon + spacing * 2;
+    //}
+
+    //protected override void OnGetPreferredWidth(Widget widget, out int minimum_size, out int natural_size)
+    //{
+    //    minimum_size = 0;
+    //    if (widget == null)
+    //    {
+    //        natural_size = 100; return;
+    //    }
+    //    var visibleRect = widget.Allocation;
+       
+    //    natural_size = visibleRect.Width - 10;
+    //}
+
+    //protected override void OnGetSize(Widget widget, ref Rectangle cell_area, out int x_offset, out int y_offset, out int width, out int height)
+    //{
+    //    const int spacing = 5;
+    //    x_offset = 0;
+    //    y_offset = 0;
+
+    //    var visibleRect = widget.Allocation;
+    //    width = visibleRect.Width - 10;
+    //    height = (int)icon + spacing * 2;
+    //}
+
+    protected override void OnRender(Cairo.Context ctx, Widget widget, Gdk.Rectangle background_area, Gdk.Rectangle cell_area, CellRendererState flags)
     {
         if (server != null && !Visible)
             return;
@@ -67,7 +101,7 @@ class DeviceAgentCellRenderer : CellRenderer
         {
             layout.Alignment = Pango.Alignment.Left;
 
-            using (var cr = Gdk.CairoHelper.Create(window))
+            using (var cr = Gdk.CairoHelper.Create(widget.Window))
             {
                 //Xwt.Drawing.Image actualIcon = null;
                 //if (server.IsKnown)
@@ -93,8 +127,6 @@ class DeviceAgentCellRenderer : CellRenderer
                     else
                     {
                         DrawRightArrow(cr, right, topMargin);
-
-                       
                         cr.SetSourceRGB(0, 0, 0);
                     }
                     cr.Fill();
@@ -103,19 +135,8 @@ class DeviceAgentCellRenderer : CellRenderer
                 StateType state = GetState(widget, flags);
 
                 layout.SetMarkup($"<b>{server?.Title ?? "Status"}</b>");
-                window.DrawLayout(widget.Style.TextGC(state), fontColumnX, fontColumnY, layout);
-
-                //TODO: hack! we need a better way from the model
-                //string subtitle = server.GetMacAddress();
-                //if (server.IsKnown)
-                //{
-                //    subtitle = server.Fingerprint;
-                //}
-                //layout.SetMarkup(subtitle);
-                //window.DrawLayout(widget.Style.TextGC(state), fontColumnX, fontColumnY + fontSeparation, layout);
+                //widget.Window.DrawLayout(widget.Style.TextGC(state), fontColumnX, fontColumnY, layout);
             }
-
-
         }
     }
 

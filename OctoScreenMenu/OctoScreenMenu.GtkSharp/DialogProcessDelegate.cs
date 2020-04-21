@@ -2,9 +2,17 @@
 using System.Xml.Linq;
 using Gtk;
 using System.Linq;
+using System.IO;
 
 public class DialogProcessDelegate
 {
+    string mainDirectory;
+
+    public DialogProcessDelegate ()
+    {
+        mainDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
+    }
+
     public void Load(Box box, string file)
     {
         XDocument doc = XDocument.Load(file);
@@ -30,7 +38,7 @@ public class DialogProcessDelegate
         else
         {
             var imgSrc = main.Attribute("src").Value ?? "LeftLIT.png";
-            obj = new Gtk.Image($"/Users/jmedrano/Klipper.PrusaMenu/OctoScreenMenu/OctoScreenMenu.GtkSharp/Icons/{imgSrc}");
+            obj = new Gtk.Image($"{mainDirectory}/Icons/{imgSrc}");
         }
 
         if (content is Box box)
@@ -50,17 +58,17 @@ public class DialogProcessDelegate
         if (obj is Gtk.Label lbl)
         {
            
-            var font = lbl.Style.FontDescription.Copy();
+            //var font = lbl.Style.FontDescription.Copy();
 
-            if (font.SizeIsAbsolute)
-            {
-                font.AbsoluteSize = font.Size + 1;
-            }
-            else
-            {
-                font.Size += (int)(Pango.Scale.PangoScale);
-            }
-            lbl.ModifyFont(font);
+            //if (font.SizeIsAbsolute)
+            //{
+            //    font.AbsoluteSize = font.Size + 1;
+            //}
+            //else
+            //{
+            //    font.Size += (int)(Pango.Scale.PangoScale);
+            //}
+            //lbl.ModifyFont(font);
             lbl.Text = main.Attribute("text")?.Value ?? "";
 
         }

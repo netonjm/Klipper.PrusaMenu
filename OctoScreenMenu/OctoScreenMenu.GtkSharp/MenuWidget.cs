@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Gtk;
 using OctoScreenMenu;
-using GLib;
 using Gdk;
 
 class MenuWidget : Gtk.HBox, IScreen
@@ -13,9 +12,9 @@ class MenuWidget : Gtk.HBox, IScreen
 
     Dictionary<TreeIter, MenuSectionFile> cacheData = new Dictionary<TreeIter, MenuSectionFile>();
 
-    public event EventHandler ShowMainScreen;
+    public event System.EventHandler ShowMainScreen;
 
-    const string filePath = "/Users/jmedrano/Klipper.PrusaMenu/printer.cfg";
+   
     MenuSectionFile mainMenuConfig;
     MainKCfgFile configFile;
 
@@ -32,13 +31,16 @@ class MenuWidget : Gtk.HBox, IScreen
         Initialzee();
     }
 
-    protected MenuWidget(GType gtype) : base(gtype)
-    {
-    }
-
     void Initialzee()
     {
         configFile = new MainKCfgFile();
+
+        string homePath = Environment.OSVersion.Platform == PlatformID.Unix ? "/home/pi" : 
+                   Environment.OSVersion.Platform == PlatformID.MacOSX
+    ? Environment.GetEnvironmentVariable("HOME")
+    : Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+
+        string filePath = $"{homePath}/printer.cfg";
         configFile.Load(filePath);
 
         mainMenuConfig = configFile.MainMenuSectionFile;
@@ -61,11 +63,9 @@ class MenuWidget : Gtk.HBox, IScreen
 
         var renderer = new DeviceAgentCellRenderer();
         // Add the columns to the TreeView
-        menuTreeView.AppendColumn("", renderer, DataFunc);
+        menuTreeView.AppendColumn("", renderer,(CellLayoutDataFunc) DataFunc);
 
         //tree.AppendColumn(songColumn);
-
-
 
         // Create a model that will hold two strings - Artist Name and Song Title
         menuItemsStore = new Gtk.ListStore(typeof(string), typeof(MenuSectionFile));
@@ -79,9 +79,9 @@ class MenuWidget : Gtk.HBox, IScreen
         Refresh(null);
     }
 
-    static void DataFunc(TreeViewColumn treeColumn, CellRenderer cell, TreeModel treeModel, TreeIter iter)
+    static void DataFunc (ICellLayout cell_layout, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
     {
-        var server = (MenuSectionFile)treeModel.GetValue(iter, 1);
+        var server = (MenuSectionFile)tree_model.GetValue(iter, 1);
         if (cell is DeviceAgentCellRenderer renderer)
         {
             renderer.SetData(server);
@@ -176,7 +176,11 @@ class MenuWidget : Gtk.HBox, IScreen
 
     public void OnKeyDown (EventKey evnt)
     {
-
         //ShowMainScreen?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void OnRotatoryClicked()
+    {
+        ShowMainScreen?.Invoke(this, EventArgs.Empty);
     }
 }

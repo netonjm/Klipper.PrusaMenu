@@ -8,7 +8,8 @@ public class StatusMenuWidget : Gtk.VBox, IScreen
     public StatusMenuWidget()
     {
         var fill = new DialogProcessDelegate();
-        fill.Load(this, "/Users/jmedrano/Klipper.PrusaMenu/OctoScreenMenu/OctoScreenMenu.GtkSharp/EmptyXmlFile.xml");
+        var location = System.IO.Path.GetDirectoryName(GetType().Assembly.Location);
+        fill.Load(this, $"{location}/EmptyXmlFile.xml");
     }
 
     public void OnKeyDown(EventKey evnt)
@@ -17,5 +18,10 @@ public class StatusMenuWidget : Gtk.VBox, IScreen
         {
             MenuScreen?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void OnRotatoryClicked()
+    {
+        MenuScreen?.Invoke(this, EventArgs.Empty);
     }
 }
