@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.Test", "Octo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.IoT", "OctoScreenMenu.IoT\OctoScreenMenu.IoT.csproj", "{DF672267-EDA6-4AE6-B111-E0884FE7BE6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctoScreenMenu.MonoGame", "OctoScreenMenu.MonoGame\OctoScreenMenu.MonoGame.csproj", "{A4C20BFC-443C-40F8-A7BE-631A28AF0BC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -31,5 +33,9 @@ Global
 		{DF672267-EDA6-4AE6-B111-E0884FE7BE6A}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{DF672267-EDA6-4AE6-B111-E0884FE7BE6A}.Release|anycpu.ActiveCfg = Release|Any CPU
 		{DF672267-EDA6-4AE6-B111-E0884FE7BE6A}.Release|anycpu.Build.0 = Release|Any CPU
+		{A4C20BFC-443C-40F8-A7BE-631A28AF0BC2}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{A4C20BFC-443C-40F8-A7BE-631A28AF0BC2}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{A4C20BFC-443C-40F8-A7BE-631A28AF0BC2}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{A4C20BFC-443C-40F8-A7BE-631A28AF0BC2}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
