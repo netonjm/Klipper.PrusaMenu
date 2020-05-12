@@ -5,8 +5,29 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TestApplication
 {
-    public static class Helpers
+    public static class Extensions
     {
+        public static void DrawRectangle(this SpriteBatch spriteBatch, int x, int y, int width, int height, Color color)
+        {
+            var rect = new Texture2D(spriteBatch.GraphicsDevice, width, height);
+
+            Color[] data = new Color[width * height];
+            for (int i = 0; i < data.Length; ++i) data[i] = color;
+            rect.SetData(data);
+
+            Vector2 coor = new Vector2(x, y);
+            spriteBatch.Draw(rect, coor, Color.White);
+        }
+
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 point1, Vector2 point2, Color color)
+        {
+            var x = (int)Math.Min(point1.X, point2.X);
+            var y = (int)Math.Min(point1.Y, point2.Y);
+            var width = (int) Math.Max(point1.X, point2.X) - x;
+            var height = (int)Math.Max(point1.Y, point2.Y) - y;
+            DrawRectangle(spriteBatch, x, y, width, height, color);
+        }
+
         private static Texture2D CreateTextureLine (SpriteBatch spriteBatch)
         {
                var _texture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -79,7 +100,7 @@ namespace TestApplication
 
         public static byte[] GetByteArray(string name)
         {
-            return GetByteArray(name, typeof(Helpers).Assembly);
+            return GetByteArray(name, typeof(Extensions).Assembly);
         }
 
         public static Stream GetStream(string name, System.Reflection.Assembly assembly)
@@ -96,7 +117,7 @@ namespace TestApplication
 
         public static Stream GetStream(string name)
         {
-            return GetStream(name, typeof(Helpers).Assembly);
+            return GetStream(name, typeof(Extensions).Assembly);
         }
 
         public static Texture2D CreateTexture2D(this GraphicsDeviceManager _graphics, string name)

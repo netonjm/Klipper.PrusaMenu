@@ -5,7 +5,7 @@ using TrueTypeSharp;
 
 namespace TestApplication
 {
-    public class TextureLabel : IDrawableObject
+    public class TextureLabel : MonoGameView
     {
         readonly TrueTypeFont font;
 
@@ -57,28 +57,6 @@ namespace TestApplication
             }
         }
 
-        int width;
-        public int Width
-        {
-            get => width;
-            set
-            {
-                width = value;
-                Refresh();
-            }
-        }
-
-        int height;
-        public int Height
-        {
-            get => height;
-            set
-            {
-                height = value;
-                Refresh();
-            }
-        }
-
         float ConvertToScale(float pointSize)
         {
             // Convert points to pixels as pointSize * 96 / 72
@@ -89,56 +67,36 @@ namespace TestApplication
         public TextureLabel(string fontName, float fontSize, GraphicsDeviceManager _graphics)
         {
             this._graphics = _graphics;
-            font = new TrueTypeFont(Helpers.GetByteArray(fontName), 0);
+            font = new TrueTypeFont(Extensions.GetByteArray(fontName), 0);
             Scale = ConvertToScale(fontSize);
         }
 
         public void Refresh()
         {
             textures = new TextureEntity[Label.Length];
-            int startX = position.X;
+            int startX = Position.X;
             for (int j = 0; j < Label.Length; j++)
             {
                 int width, height, xOffset, yOffset;
                 uint index = font.FindGlyphIndex(Label[j]);
                 byte[] data = font.GetGlyphBitmap(index, Scale, Scale, out width, out height, out xOffset, out yOffset);
                 var texture = _graphics.CreateTexture2D(data, width, height);
-                textures[j] = new TextureEntity (texture, new Point (startX, position.Y));
+                textures[j] = new TextureEntity (texture, new Point (startX, Position.Y));
 
                 startX += width + charSeparation;
-
-                this.width = Math.Max(height, startX - position.X);
-                this.height = Math.Max(height, this.height);
+               
+                var w = Math.Max(height, startX - Position.X);
+                var h = Math.Max(height, Height);
+                Size = new Point(w, h);
             }
         }
 
-        Point position = Point.Zero;
-        public Point Position
-        {
-            get => position;
-            set
-            {
-                position = value;
-                Refresh();
-            }
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (var texture in textures)
             {
                 texture.Draw (spriteBatch, color);
             }
-        }
-
-        public void LoadContent()
-        {
-           
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            
         }
     }
 }

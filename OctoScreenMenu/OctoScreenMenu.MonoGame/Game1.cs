@@ -1,21 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TrueTypeSharp;
+using System.Linq;
 
 namespace TestApplication
 {
-
     public class Game1 : Game
     {
-        SpriteBatch spriteBatch;
-        VerticalMenu mainMenu;
-        Texture2D background;
-        GraphicsDeviceManager _graphics;
+        readonly GraphicsDeviceManager _graphics;
 
-        SuperiorMenu superiorMenu;
+        List<BaseScreen> screens = new List<BaseScreen>();
 
+        BaseScreen currentScreen;
 
         public Game1()
         {
@@ -28,27 +26,33 @@ namespace TestApplication
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+
+            var loadingScreen = new LoadingScreen(_graphics);
+            loadingScreen.Finished += (s,e) => Show<MainScreen>();
+            currentScreen = loadingScreen;
+
+            screens.Add(currentScreen);
+            screens.Add(new MainScreen(_graphics));
+
+            Show<LoadingScreen>();
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            mainMenu = new VerticalMenu(_graphics);
-            mainMenu.Position = new Point(100, 200);
-            mainMenu.Add("hola");
-            var menu = mainMenu.Add("menu");
-            mainMenu.Add("mi casa");
-            mainMenu.Add("test");
-            mainMenu.Add("lol");
-
-            superiorMenu = new SuperiorMenu(_graphics);
-            superiorMenu.Position = new Point(0, 20);
-
-            background = _graphics.CreateTexture2D ("background.png");
+            foreach (var screen in screens)
+                screen.LoadContent();
         }
 
-        KeyboardState parentState;
+        void Show <T> () where T : BaseScreen
+        {
+            currentScreen = screens.OfType<T>().FirstOrDefault();
+        }
+
+        private void LoadingScreen_Finished(object sender, EventArgs e)
+        {
+            currentScreen = new MainScreen(_graphics);
+            currentScreen.LoadContent();
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -56,29 +60,9 @@ namespace TestApplication
             KeyboardState state = Keyboard.GetState();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || state.IsKeyDown(Keys.Escape))
-                Exit();
+                Exit ();
 
-            if (state.IsKeyUp (Keys.Down) && parentState.IsKeyDown (Keys.Down)) {
-                if (mainMenu.SelectedIndex < mainMenu.Items.Count - 1)
-                    mainMenu.SelectedIndex++;
-            }
-            else if (state.IsKeyUp(Keys.Up) && parentState.IsKeyDown(Keys.Up))
-            {
-                if (mainMenu.SelectedIndex > 0)
-                    mainMenu.SelectedIndex--;
-            }
-            else if (state.IsKeyUp(Keys.Left) && parentState.IsKeyDown(Keys.Left))
-            {
-                if (superiorMenu.Tab > 0)
-                    superiorMenu.Tab--;
-            }
-            else if (state.IsKeyUp(Keys.Right) && parentState.IsKeyDown(Keys.Right))
-            {
-                if (superiorMenu.Tab < 5)
-                    superiorMenu.Tab++;
-            }
-
-            parentState = state;
+            currentScreen?.Update(gameTime);
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -86,17 +70,7 @@ namespace TestApplication
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
-            spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
-
-            superiorMenu.Draw(spriteBatch);
-            mainMenu.Draw(spriteBatch);
-
-            spriteBatch.End();
+            currentScreen?.Draw(gameTime);
             base.Draw(gameTime);
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TestApplication
 {
-    public class VerticalMenu : IDrawableObject
+    public class VerticalMenu : IMonoGameObject
     {
         int separation = 3;
         public int Separation
@@ -77,7 +77,7 @@ namespace TestApplication
             foreach (var item in Items)
             {
                 item.Position = new Point(Position.X, it);
-                it += item.Height;
+                it += item.Height + separation;
                 item.IsSelected = selectedItem == item;
             }
         }
@@ -92,11 +92,11 @@ namespace TestApplication
 
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (var item in Items)
             {
-                item.Draw(spriteBatch);
+                item.Draw(gameTime, spriteBatch);
             }
         }
     }

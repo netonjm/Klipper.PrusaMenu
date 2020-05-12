@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TestApplication
 {
-    public class SuperiorMenu : IDrawableObject
+    public class SuperiorMenuView : MonoGameView
     {
         int y = 30;
 
@@ -19,7 +19,7 @@ namespace TestApplication
         Vector2 lastVector;
         List<TextureLine> lineas = new List<TextureLine>();
 
-        public SuperiorMenu (GraphicsDeviceManager graphics)
+        public SuperiorMenuView(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
 
@@ -79,40 +79,24 @@ namespace TestApplication
             tab_r.P2 = new Vector2(pixel + tabWidth, tab_l.P2.Y + tabHeight);
         }
 
-        Point position = Point.Zero;
-        public Point Position
+        protected override void OnNeedsRedraw()
         {
-            get => position;
-            set
-            {
-                position = value;
-                lastVector = new Vector2 (value.X, value.Y);
-                Refresh ();
-            }
+            lastVector = new Vector2(Position.X, Position.Y);
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public override void Draw (GameTime gameTime, SpriteBatch spriteBatch)
         {
-            first.Draw(spriteBatch);
-            second.Draw(spriteBatch);
+            first.Draw(gameTime,spriteBatch);
+            second.Draw(gameTime, spriteBatch);
 
-            tab_l.Draw(spriteBatch);
-            tab_u.Draw(spriteBatch);
-            tab_r.Draw(spriteBatch);
+            tab_l.Draw(gameTime, spriteBatch);
+            tab_u.Draw(gameTime, spriteBatch);
+            tab_r.Draw(gameTime, spriteBatch);
+            
             //foreach (var item in lineas)
             //{
             //    item.Draw (spriteBatch);
             //}
-        }
-
-        public void LoadContent()
-        {
-            
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
         }
     }
 }

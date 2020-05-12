@@ -3,14 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TestApplication
 {
-    public class TextureLine : Texture2D, IDrawableObject
+    public class TextureLine : MonoGameView
     {
+        Texture2D texture2D;
+
         public Color Color { get; set; } = Color.GreenYellow;
         public int Thrickness { get; set; } = 3;
 
-        public TextureLine(GraphicsDevice graphicsDevice) : base(graphicsDevice, 1, 1, false, SurfaceFormat.Color)
+        public TextureLine(GraphicsDevice graphicsDevice)
         {
-            SetData(new[] { Color.White });
+            texture2D = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            texture2D.SetData(new[] { Color.White });
         }
 
         Vector2 p1;
@@ -27,19 +30,9 @@ namespace TestApplication
             set => p2 = value;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawLine(this, P1, P2, Color, Thrickness);
-        }
-
-        public void LoadContent()
-        {
-
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
+            spriteBatch.DrawLine(texture2D, P1, P2, Color, Thrickness);
         }
     }
 }

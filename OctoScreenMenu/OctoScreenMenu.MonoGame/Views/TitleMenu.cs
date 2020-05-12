@@ -14,7 +14,7 @@ namespace TestApplication
             Color = Color.GreenYellow;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (var texture in textures)
             {

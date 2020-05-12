@@ -43,4 +43,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Screens\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Views\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OctoScreenMenu\OctoScreenMenu.csproj" />
+  </ItemGroup>
 </Project>
