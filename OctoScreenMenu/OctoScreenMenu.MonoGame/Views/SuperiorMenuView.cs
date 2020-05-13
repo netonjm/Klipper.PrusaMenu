@@ -9,8 +9,6 @@ namespace TestApplication
     {
         int y = 30;
 
-        GraphicsDeviceManager graphics;
-
         TextureLine first;
         TextureLine second;
 
@@ -19,23 +17,21 @@ namespace TestApplication
         Vector2 lastVector;
         List<TextureLine> lineas = new List<TextureLine>();
 
-        public SuperiorMenuView(GraphicsDeviceManager graphics)
+        public SuperiorMenuView()
         {
-            this.graphics = graphics;
+            first = new TextureLine();
+            second = new TextureLine();
 
-            first = new TextureLine(graphics.GraphicsDevice);
-            second = new TextureLine(graphics.GraphicsDevice);
-
-            tab_l = new TextureLine(graphics.GraphicsDevice);
-            tab_u = new TextureLine(graphics.GraphicsDevice);
-            tab_r = new TextureLine(graphics.GraphicsDevice);
+            tab_l = new TextureLine();
+            tab_u = new TextureLine();
+            tab_r = new TextureLine();
 
             Refresh();
         }
 
         public void AddPoint (Vector2 vector)
         {
-            var lines = new TextureLine(graphics.GraphicsDevice)
+            var lines = new TextureLine()
             {
                 P1 = lastVector,
                 P2 = vector
@@ -67,7 +63,8 @@ namespace TestApplication
             first.P2 = new Vector2(pixel, y);
 
             second.P1 = new Vector2(pixel + tabWidth, y);
-            second.P2 = new Vector2(graphics.GraphicsDevice.Viewport.Width, y);
+
+            second.P2 = new Vector2(GameContext.Width, y);
 
             tab_l.P1 = first.P2;
             tab_l.P2 = new Vector2(pixel, y - tabHeight);

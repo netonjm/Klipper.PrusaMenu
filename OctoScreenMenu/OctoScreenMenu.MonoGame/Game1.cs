@@ -11,6 +11,8 @@ namespace TestApplication
     {
         readonly GraphicsDeviceManager _graphics;
 
+        KMenuModel menuModel;
+
         List<BaseScreen> screens = new List<BaseScreen>();
 
         BaseScreen currentScreen;
@@ -18,8 +20,22 @@ namespace TestApplication
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+            var os = PlatformID.MacOSX;
+
+            string homePath = os == PlatformID.Unix ? "/home/pi" :
+                       os == PlatformID.MacOSX
+        ? Environment.GetEnvironmentVariable("HOME")
+        : Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+
+            //homePath
+            string filePath = $"{homePath}/printer.cfg";
+
+            menuModel = new KMenuModel (filePath);
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+          
         }
 
         protected override void Initialize()
@@ -27,14 +43,19 @@ namespace TestApplication
             // TODO: Add your initialization logic here
             base.Initialize();
 
-            var loadingScreen = new LoadingScreen(_graphics);
-            loadingScreen.Finished += (s,e) => Show<MainScreen>();
+            GameContext.Initialize(_graphics, menuModel);
+
+            var loadingScreen = new LoadingScreen();
+            loadingScreen.Finished += (s, e) => Show<MainScreen>();
             currentScreen = loadingScreen;
 
             screens.Add(currentScreen);
-            screens.Add(new MainScreen(_graphics));
+            screens.Add(new MainScreen());
 
-            Show<LoadingScreen>();
+            Show<MainScreen>();
+
+            foreach (var screen in screens)
+                screen.Initialize ();
         }
 
         protected override void LoadContent()
@@ -50,7 +71,7 @@ namespace TestApplication
 
         private void LoadingScreen_Finished(object sender, EventArgs e)
         {
-            currentScreen = new MainScreen(_graphics);
+            currentScreen = new MainScreen();
             currentScreen.LoadContent();
         }
 

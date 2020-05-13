@@ -10,9 +10,9 @@ namespace TestApplication
         public Color Color { get; set; } = Color.GreenYellow;
         public int Thrickness { get; set; } = 3;
 
-        public TextureLine(GraphicsDevice graphicsDevice)
+        public TextureLine()
         {
-            texture2D = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            texture2D = new Texture2D(GameContext.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture2D.SetData(new[] { Color.White });
         }
 
@@ -32,7 +32,7 @@ namespace TestApplication
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawLine(texture2D, P1, P2, Color, Thrickness);
+            spriteBatch.DrawLine(texture2D, P1 , P2, Color, Thrickness);
         }
     }
 }

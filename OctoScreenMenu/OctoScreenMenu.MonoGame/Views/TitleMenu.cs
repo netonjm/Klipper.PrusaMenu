@@ -9,7 +9,7 @@ namespace TestApplication
 
         public Color SelectedColor { get; set; } = Color.Blue;
 
-        public TitleMenu(GraphicsDeviceManager _graphics) : base("arial.ttf", 40, _graphics)
+        public TitleMenu() : base("arial.ttf", 40)
         {
             Color = Color.GreenYellow;
         }

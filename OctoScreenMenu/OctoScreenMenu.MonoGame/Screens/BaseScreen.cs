@@ -1,16 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace TestApplication
 {
     abstract public class BaseScreen : IMDScreen
     {
-        protected GraphicsDeviceManager GraphicsDeviceManager;
+        readonly public List<MonoGameView> Children = new List<MonoGameView>(); 
 
-        protected Microsoft.Xna.Framework.Graphics.GraphicsDevice GraphicsDevice => GraphicsDeviceManager.GraphicsDevice;
-
-        public BaseScreen(GraphicsDeviceManager _graphics)
+        public BaseScreen()
         {
-            this.GraphicsDeviceManager = _graphics;
+
         }
 
         public virtual void Draw(GameTime spriteBatch)
@@ -20,12 +20,20 @@ namespace TestApplication
 
         public virtual void LoadContent()
         {
-
+            foreach (var item in Children)
+                item.LoadContent();
         }
 
         public virtual void Update(GameTime gameTime)
         {
+            foreach (var item in Children)
+                item.Update(gameTime);
+        }
 
+        public virtual void Initialize()
+        {
+            foreach (var item in Children)
+                item.Initialize ();
         }
     }
 }

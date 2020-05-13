@@ -5,17 +5,16 @@ namespace TestApplication
 {
     public class TextureEntity : MonoGameView
     {
-        public TextureEntity (Texture2D texture, Point position)
+        public TextureEntity (Texture2D texture)
         {
             Texture = texture;
-            Position = position;
         }
 
         public Texture2D Texture { get; private set; }
 
         internal void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(Texture, Allocation, color);
+            spriteBatch.Draw(Texture, AbsoluteBounds, color);
         }
     }
 }

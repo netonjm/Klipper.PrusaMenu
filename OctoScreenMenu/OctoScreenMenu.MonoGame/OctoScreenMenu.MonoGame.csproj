@@ -16,6 +16,7 @@
     <None Remove="Icon.bmp" />
     <None Remove="arial.ttf" />
     <None Remove="Content\background.png" />
+    <None Remove="Content\over.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -25,6 +26,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Content\background.png">
       <LogicalName>background.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\over.png">
+      <LogicalName>over.png</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +52,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Views\" />
     <Folder Include="Helpers\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OctoScreenMenu\OctoScreenMenu.csproj" />

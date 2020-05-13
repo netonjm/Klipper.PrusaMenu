@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TestApplication
 {
-    public class VerticalMenu : IMonoGameObject
+    public class MenuListView : MonoGameView
     {
         int separation = 3;
         public int Separation
@@ -19,84 +19,127 @@ namespace TestApplication
             }
         }
 
-        Point position = Point.Zero;
-        public Point Position
+        int fontSize = 20;
+        public int FontSize
         {
-            get => position;
+            get => fontSize;
             set
             {
-                position = value;
+                fontSize = value;
                 Refresh();
             }
         }
 
-        readonly public List<TitleMenu> Items = new List<TitleMenu>();
+        readonly List<(TitleMenu, object)> data = new List<(TitleMenu, object)>();
+        public IReadOnlyList<TitleMenu> Items => data.Select(s => s.Item1)
+            .ToList()
+            .AsReadOnly();
 
-        GraphicsDeviceManager _graphics;
-        public VerticalMenu(GraphicsDeviceManager _graphics)
+        public MenuListView()
         {
-            this._graphics = _graphics;
+        }
+
+        int IndexOf(TitleMenu titleMenu)
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (data[i].Item1 == titleMenu)
+                    return i;
+            }
+            return -1;
         }
 
         public int SelectedIndex {
-            get => Items.IndexOf (selectedItem);
+            get => IndexOf (SelectedTitle);
             set
             {
-                SelectedItem = Items[value];
+                if (value == -1)
+                    SelectedTitle = null;
+                SelectedTitle = Items[value];
             } 
         }
 
-        TitleMenu selectedItem;
-        public TitleMenu SelectedItem
+        (TitleMenu, object) selectedItem;
+        public TitleMenu SelectedTitle
         {
-            get => selectedItem;
+            get => selectedItem.Item1;
             set
             {
-                selectedItem = value;
+                if (value != null)
+                {
+                    var first = data.FirstOrDefault(s => s.Item1 == value);
+                    selectedItem = first;
+                } else
+                {
+                    selectedItem = default;
+                }
+              
                 Refresh();
             }
         }
 
-        public TitleMenu Add (string title)
+        public object SelectedItem
         {
-            var titleMenu = new TitleMenu(_graphics) { Label = title, SelectedColor = Color.Red };
-            Items.Add(titleMenu);
+            get => selectedItem.Item2;
+            set
+            {
+                var first = data.FirstOrDefault(s => s.Item2 == value);
+                selectedItem = first;
+                Refresh();
+            }
+        }
+
+        public void Clear(bool refresh = true)
+        {
+            var items = Items.ToArray ();
+            foreach (var item in items)
+                Remove(item, false);
+
+            if (refresh)
+                Refresh();
+        }
+
+        public TitleMenu Add (string title, object element, bool refresh = true)
+        {
+            var titleMenu = new TitleMenu() {
+                Label = title,
+                SelectedColor = Color.Red
+            };
+            data.Add((titleMenu, element));
+            AddChildren(titleMenu);
+            if (refresh)
             Refresh();
             return titleMenu;
         }
 
-        public void Remove (TitleMenu menu)
+        public void Remove (TitleMenu menu, bool refresh = true)
         {
-            Items.Remove(menu);
-            Refresh();
+            RemoveChildren(menu);
+
+            var first = data.FirstOrDefault(s => s.Item1 == menu);
+            data.Remove(first);
+
+            if (refresh)
+                Refresh();
         }
 
-        private void Refresh()
+        public void Refresh()
         {
             var it = Position.Y;
-            foreach (var item in Items)
+            foreach (var item in data)
             {
-                item.Position = new Point(Position.X, it);
-                it += item.Height + separation;
-                item.IsSelected = selectedItem == item;
+                item.Item1.Position = new Point(Position.X, it);
+                it += item.Item1.Height + separation;
+                item.Item1.IsSelected = selectedItem == item;
+                item.Item1.FontSize = fontSize;
             }
         }
 
-        public void LoadContent()
-        {
-
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-        public void Draw (GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw (GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (var item in Items)
             {
-                item.Draw(gameTime, spriteBatch);
+                item.Draw (gameTime, spriteBatch);
             }
         }
     }

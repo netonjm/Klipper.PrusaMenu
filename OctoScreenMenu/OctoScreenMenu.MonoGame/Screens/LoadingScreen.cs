@@ -10,9 +10,16 @@ namespace TestApplication
         public event EventHandler Finished;
         SpriteBatch spriteBatch;
 
-        public LoadingScreen(GraphicsDeviceManager _graphics) : base(_graphics)
+        public LoadingScreen() 
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+        }
+
+        public override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(GameContext.GraphicsDevice);
+
+            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -25,11 +32,10 @@ namespace TestApplication
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GameContext.GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-           
+        
 
             spriteBatch.End();
         }

@@ -9,16 +9,18 @@ namespace TestApplication
     {
         readonly TrueTypeFont font;
 
-        GraphicsDeviceManager _graphics;
         protected TextureEntity[] textures;
 
         float scale;
-        public float Scale
+
+        float fontSize;
+        public float FontSize
         {
-            get => scale;
+            get => fontSize;
             set
             {
-                scale = value;
+                fontSize = value;
+                scale = ConvertToScale(fontSize);
                 Refresh();
             }
         }
@@ -64,31 +66,51 @@ namespace TestApplication
             return font.GetScaleForPixelHeight(pixelHeight);
         }
 
-        public TextureLabel(string fontName, float fontSize, GraphicsDeviceManager _graphics)
+        public TextureLabel(string fontName, float fontSize)
         {
-            this._graphics = _graphics;
             font = new TrueTypeFont(Extensions.GetByteArray(fontName), 0);
-            Scale = ConvertToScale(fontSize);
+            FontSize = fontSize;
         }
 
         public void Refresh()
         {
             textures = new TextureEntity[Label.Length];
             int startX = Position.X;
+
+            int maxH = 0;
+
+            int minX = 0, maxX = 0;
+
             for (int j = 0; j < Label.Length; j++)
             {
+                var charac = Label[j];
                 int width, height, xOffset, yOffset;
-                uint index = font.FindGlyphIndex(Label[j]);
-                byte[] data = font.GetGlyphBitmap(index, Scale, Scale, out width, out height, out xOffset, out yOffset);
-                var texture = _graphics.CreateTexture2D(data, width, height);
-                textures[j] = new TextureEntity (texture, new Point (startX, Position.Y));
+
+                uint index = font.FindGlyphIndex(charac);
+                byte[] data = font.GetGlyphBitmap(index, scale, scale, out width, out height, out xOffset, out yOffset);
+                var texture = GameContext.CreateTexture2D(data, width, height);
+
+                var textureEntity = textures[j] = new TextureEntity(texture);
+                AddChildren(textureEntity);
+
+                if (j == 0)
+                    minX = startX;
+                else if (j == Label.Length-1)
+                    maxX = startX;
+
+                if (charac == ' ')
+                {
+                    width = 10;
+                }
+
+                textureEntity.Allocation = new Rectangle (startX, Position.Y, width, height);
+
+                maxH = Math.Max (maxH, height);
 
                 startX += width + charSeparation;
-               
-                var w = Math.Max(height, startX - Position.X);
-                var h = Math.Max(height, Height);
-                Size = new Point(w, h);
             }
+
+            Allocation = new Rectangle(Position.X, Position.Y, maxX - minX, maxH);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
