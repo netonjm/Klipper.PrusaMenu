@@ -7,6 +7,17 @@ namespace TestApplication
 {
     public static class Extensions
     {
+        public static void Add (this Vector2 vector, Vector2 vector2)
+        {
+            Add(vector, vector2.X, vector2.Y);
+        }
+
+        public static void Add (this Vector2 vector, float x, float y)
+        {
+            vector.X += x;
+            vector.Y += y;
+        }
+
         public static void DrawRectangle(this SpriteBatch spriteBatch, int x, int y, int width, int height, Color color)
         {
             var rect = new Texture2D(spriteBatch.GraphicsDevice, width, height);

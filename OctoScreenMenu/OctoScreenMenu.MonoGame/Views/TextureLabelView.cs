@@ -117,7 +117,7 @@ namespace TestApplication
         {
             foreach (var texture in textures)
             {
-                texture.Draw (spriteBatch, color);
+                texture.Draw(spriteBatch, color);
             }
         }
     }

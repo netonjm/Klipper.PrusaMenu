@@ -28,11 +28,15 @@ namespace TestApplication
 
             spriteBatch = new SpriteBatch(GameContext.GraphicsDevice);
             menuListView = new MenuListView();
+
             menuListView.Position = new Point(30, 40);
             menuListView.Separation = 0;
 
             superiorMenu = new SuperiorMenuView();
-            superiorMenu.Position = new Point(0, 0);
+            superiorMenu.OffsetFirstItem = 40;
+            superiorMenu.ItemWidth = 90;
+            superiorMenu.ItemHeight = 26;
+            superiorMenu.Position = new Point(0, 23);
 
             background = GameContext.CreateTexture2D("background.png");
 
@@ -49,7 +53,7 @@ namespace TestApplication
             if (menuModel.IsMain)
                 menuListView.Add("Main".ToUpper(), null, refresh: false);
             else
-                menuListView.Add("Parent...".ToUpper(), menuModel.Parent, refresh: false);
+                menuListView.Add("Parent".ToUpper(), menuModel.Parent, refresh: false);
 
             foreach (var item in menuModel.Children)
             {
@@ -71,11 +75,14 @@ namespace TestApplication
             spriteBatch.Begin();
 
             spriteBatch.Draw(background, new Rectangle(0, 0, GameContext.Width, GameContext.Height), Color.White);
+
             superiorMenu.Draw(gameTime, spriteBatch);
             menuListView.Draw(gameTime, spriteBatch);
 
             //spriteBatch.Draw(over, new Rectangle(0, 0, GameContext.Width, GameContext.Height), Color.White);
             spriteBatch.End();
+
+            base.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -103,18 +110,27 @@ namespace TestApplication
             {
                 SelectCurrentFile ();
             }
+            else if (state.IsKeyUp(Keys.Back) && parentState.IsKeyDown(Keys.Back))
+            {
+                BackFile();
+            }
 
             parentState = state;
+        }
+
+        private void BackFile()
+        {
+            if (!menuModel.IsMain)
+                menuModel.Actual = menuModel.Parent;
+            RefreshItems();
         }
 
         private void SelectCurrentFile()
         {
             if (menuListView.SelectedIndex == -1)
                 return;
-            var item = menuListView.SelectedItem as OctoScreenMenu.MenuSectionFile;
-            if (item != null)
-            menuModel.Actual = item;
-
+            if (menuListView.SelectedItem is OctoScreenMenu.MenuSectionFile file)
+                menuModel.Actual = file;
             RefreshItems();
         }
 
@@ -134,15 +150,15 @@ namespace TestApplication
 
         void SelectNextTab ()
         {
-            if (superiorMenu.Tab > 0)
-                superiorMenu.Tab--;
+            if (superiorMenu.SelectedIndex < 5)
+                superiorMenu.SelectedIndex++;
+           
         }
 
         void SelectPreviousTab()
         {
-            if (superiorMenu.Tab < 5)
-                superiorMenu.Tab++;
+            if (superiorMenu.SelectedIndex > 0)
+                superiorMenu.SelectedIndex--;
         }
-
     }
 }

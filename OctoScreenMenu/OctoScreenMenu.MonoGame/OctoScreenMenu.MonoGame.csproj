@@ -53,6 +53,9 @@
     <Folder Include="Views\" />
     <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Managers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Sprites\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OctoScreenMenu\OctoScreenMenu.csproj" />

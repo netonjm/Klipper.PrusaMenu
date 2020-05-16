@@ -30,9 +30,31 @@ namespace TestApplication
             set => p2 = value;
         }
 
+        public Vector2 AbsoluteP1
+        {
+            get
+            {
+                return new Vector2 (
+                    Parent.AbsoluteBounds.X + p1.X,
+                     Parent.AbsoluteBounds.Y + p1.Y
+                    );
+            }
+        }
+
+        public Vector2 AbsoluteP2
+        {
+            get
+            {
+                return new Vector2(
+                    Parent.AbsoluteBounds.X + p2.X,
+                     Parent.AbsoluteBounds.Y + p2.Y
+                    );
+            }
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawLine(texture2D, P1 , P2, Color, Thrickness);
+            spriteBatch.DrawLine(texture2D, AbsoluteP1, AbsoluteP2, Color, Thrickness);
         }
     }
 }
